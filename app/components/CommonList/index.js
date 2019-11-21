@@ -4,9 +4,8 @@ import PropTypes from 'prop-types';
 import List from 'components/List';
 import ListItem from 'components/ListItem';
 import LoadingIndicator from 'components/LoadingIndicator';
-import RepoListItem from 'containers/RepoListItem';
 
-function ReposList({ loading, error, repos }) {
+function CommonList({ loading, error, items, listItemComponent }) {
   if (loading) {
     return <List component={LoadingIndicator} />;
   }
@@ -18,17 +17,19 @@ function ReposList({ loading, error, repos }) {
     return <List component={ErrorComponent} />;
   }
 
-  if (repos !== false) {
-    return <List items={repos} component={RepoListItem} />;
+  if (items !== false) {
+    return <List items={items} component={listItemComponent} />;
   }
 
   return null;
 }
 
-ReposList.propTypes = {
+CommonList.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.any,
-  repos: PropTypes.any,
+  items: PropTypes.any,
+  listItemComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
+    .isRequired,
 };
 
-export default ReposList;
+export default CommonList;

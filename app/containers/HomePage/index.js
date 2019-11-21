@@ -20,7 +20,8 @@ import {
   makeSelectError,
 } from 'containers/App/selectors';
 import H2 from 'components/H2';
-import ReposList from 'components/ReposList';
+import CommonList from 'components/CommonList';
+import RepoListItem from '../RepoListItem';
 import AtPrefix from './AtPrefix';
 import CenteredSection from './CenteredSection';
 import Form from './Form';
@@ -51,10 +52,11 @@ export function HomePage({
     if (username && username.trim().length > 0) onSubmitForm();
   }, []);
 
-  const reposListProps = {
+  const commonListProps = {
     loading,
     error,
-    repos,
+    items: repos,
+    listItemComponent: RepoListItem,
   };
 
   return (
@@ -94,7 +96,7 @@ export function HomePage({
               />
             </label>
           </Form>
-          <ReposList {...reposListProps} />
+          <CommonList {...commonListProps} />
         </Section>
       </div>
     </article>
